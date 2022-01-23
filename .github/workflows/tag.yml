@@ -11,12 +11,13 @@ env:
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
+#    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
+    #    strategy:
+#      matrix:
 #        os: [ macos-latest, ubuntu-latest, windows-latest ] # macOS、Ubuntu、Windowsでビルド作業を行う
-        os: [windows-latest, ubuntu-latest]
+#        os: [ubuntu-latest]
 
     steps:
       - name: checkout
@@ -28,9 +29,10 @@ jobs:
           node-version: 16.x
 
       - name: install software (ubuntu only)
-        if: matrix.os == 'ubuntu-latest'
+#        if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt install snapd
+          sudo apt update
+          sudo apt install snapd -y
           sudo snap install snapcraft --classic
 
       - name: npm install
@@ -39,4 +41,5 @@ jobs:
 
       - name: build
         run: |
+          npm run build
           npm run dist
