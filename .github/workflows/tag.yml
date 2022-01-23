@@ -11,35 +11,24 @@ env:
 
 jobs:
   release:
-#    runs-on: ${{ matrix.os }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
-    #    strategy:
-#      matrix:
-#        os: [ macos-latest, ubuntu-latest, windows-latest ] # macOS、Ubuntu、Windowsでビルド作業を行う
-#        os: [ubuntu-latest]
+    strategy:
+      matrix:
+        os: [windows-latest]
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v1
 
-      - name: setup nodejs
-        uses: actions/setup-node@v2
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
         with:
-          node-version: 16.x
+          node-version: 10
 
-      - name: install software (ubuntu only)
-#        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt update
-          sudo apt install snapd -y
-          sudo snap install snapcraft --classic
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
 
-      - name: npm install
-        run: |
-          npm install
-
-      - name: build
-        run: |
-          npm run build
-          npm run dist
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
