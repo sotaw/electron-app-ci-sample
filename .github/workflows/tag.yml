@@ -12,7 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ] # macOS、Ubuntu、Windowsでビルド作業を行う
+#        os: [ macos-latest, ubuntu-latest, windows-latest ] # macOS、Ubuntu、Windowsでビルド作業を行う
+        os: [ ubuntu-latest ]
 
     steps:
       - name: checkout
@@ -22,6 +23,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
+
+      - name: setup snapcraft (ubuntu only)
+        run: |
+          sudo apt install snapd
+          sudo snap install snapcraft --classic
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
