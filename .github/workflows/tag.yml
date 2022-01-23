@@ -13,25 +13,21 @@ jobs:
     strategy:
       matrix:
 #        os: [ macos-latest, ubuntu-latest, windows-latest ] # macOS、Ubuntu、Windowsでビルド作業を行う
-        os: [ ubuntu-latest ]
+        os: [windows-latest, macos-latest]
 
     steps:
       - name: checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: setup nodejs
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 16.x
 
-      - name: setup snapcraft (ubuntu only)
+      - name: npm install
         run: |
-          sudo apt install snapd
-          sudo snap install snapcraft --classic
+          npm install
 
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: build
+        run: |
+          npm run dist
