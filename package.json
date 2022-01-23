@@ -40,6 +40,7 @@
       "provider": "github",
       "owner": "garm-inc",
       "repo": "electron-app-ci-sample",
+      "private": true,
       "releaseType": "release"
     }
   }
