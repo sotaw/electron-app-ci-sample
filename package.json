@@ -38,7 +38,7 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "sotaw",
+      "owner": "garm-inc",
       "repo": "electron-app-ci-sample",
       "releaseType": "release"
     }
