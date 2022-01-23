@@ -40,7 +40,6 @@
       "provider": "github",
       "owner": "sotaw",
       "repo": "electron-app-ci-sample",
-      "private": true,
       "releaseType": "release"
     }
   }
