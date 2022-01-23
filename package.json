@@ -35,6 +35,12 @@
     "files": [
       "main",
       "renderer/out"
-    ]
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "garm-inc",
+      "repo": "electron-app-ci-sample",
+      "releaseType": "release"
+    }
   }
 }
